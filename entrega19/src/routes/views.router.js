@@ -13,7 +13,7 @@ router.get("/home", (req, res) => {
 });
 
 router.get("/register", (req, res) => {
-  res.render("register", {isAdmin: req.session.admin, isAdmin: req.session.coder }); // incluindo a session coder como admin
+  res.render("register", {isAdmin: req.session.admin, isCoder: req.session.coder}); // incluindo a session coder 
 });
 
 router.get("/list", async (req, res) => {
@@ -23,7 +23,7 @@ router.get("/list", async (req, res) => {
   // https://github.com/handlebars-lang/handlebars.js/issues/1642
 
   users = users.map((user) => user.toJSON());
-  res.render("list", { users, isAdmin: req.session.admin, isAdmin: req.session.coder }); // incluindo a session coder como admin
+  res.render("list", { users, isAdmin: req.session.admin, isCoder: req.session.coder }); // incluindo a session coder
 });
 
 router.get("/usuario-deletado/:email", async (req, res) => {

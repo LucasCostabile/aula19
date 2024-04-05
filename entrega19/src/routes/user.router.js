@@ -12,19 +12,23 @@ router.post("/login", async (req, res) => {
     return res.render("loginFail", { email: user.username });
     //return res.status(404).json({ message: "Usuário não encontrado" });
   }
+    // validando o email "adminCoder"
+    else if(userFound.email ==="adminCoder@coder.com" && userFound.role === "coder" && userFound.password === user.password) {
+      
+    req.session.user = user;
+    req.session.coder = true
+    return res.render("loginCoder", {name: user.username}) // redirecionando para uma pagina onde apenas esse email tem acesso
+  }
 
-   /* else if(userFound ==="adminCoder@coder.com" && userFound.password === user.password) {
-    return res.render("loginCoder")
-  } */
-
-  if (userFound.role === "admin" || userFound.role === "coder"  && userFound.password === user.password) {
+  if (userFound.role === "admin" && userFound.password === user.password) {
     req.session.user = user;
     req.session.admin = true;
-    req.session.coder = true;
+    //req.session.coder = true;
     req.session.logged = true;
   } else {
     req.session.user = user;
     req.session.admin = false;
+    //req.session.coder = false;
     req.session.logged = true;
   }
   console.log( { name: user.username });
